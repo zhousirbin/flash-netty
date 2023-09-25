@@ -6,8 +6,15 @@ import the.flash.protocol.response.LoginResponsePacket;
 import the.flash.session.Session;
 import the.flash.util.SessionUtil;
 
+/**
+ * 登录
+ */
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 
+    /**
+     * 自己定义入参协议
+     * 根据客户端的入参类型，决定命中哪个handler, loginResponsePacket
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket) {
         String userId = loginResponsePacket.getUserId();

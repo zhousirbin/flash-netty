@@ -20,6 +20,9 @@ public class PacketCodec {
     private final Map<Byte, Serializer> serializerMap;
 
 
+    /**
+     * 定义好，不同指令，对应的编码和加码器
+     */
     private PacketCodec() {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
@@ -50,7 +53,7 @@ public class PacketCodec {
         // 1. 序列化 java 对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
 
-        // 2. 实际编码过程
+        // 2. 实际编码过程--魔数、版本号、序列化算法标识、指令、数据长度和数据
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
         byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());
@@ -60,6 +63,9 @@ public class PacketCodec {
     }
 
 
+    /**
+     * 协议里，对应这指令，根据指令解析对应哪种对象
+     */
     public Packet decode(ByteBuf byteBuf) {
         // 跳过 magic number
         byteBuf.skipBytes(4);

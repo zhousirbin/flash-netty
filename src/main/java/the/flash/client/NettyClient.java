@@ -94,6 +94,9 @@ public class NettyClient {
         });
     }
 
+    /**
+     * 启动控制台
+     */
     private static void startConsoleThread(Channel channel) {
         ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
         LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();

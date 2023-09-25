@@ -6,6 +6,9 @@ import the.flash.protocol.request.CreateGroupRequestPacket;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * 创建群命令
+ */
 public class CreateGroupConsoleCommand implements ConsoleCommand {
 
     private static final String USER_ID_SPLITER = ",";

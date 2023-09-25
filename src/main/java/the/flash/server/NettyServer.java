@@ -16,10 +16,17 @@ import the.flash.server.handler.LoginRequestHandler;
 
 import java.util.Date;
 
+/**
+ * 服务端，pipeline和channelhandler, 避免if else泛滥
+ */
 public class NettyServer {
 
     private static final int PORT = 8000;
 
+
+    /**
+     * 创建一个引导类，制定线程模型，制定读写处理逻辑，绑定端口
+     */
     public static void main(String[] args) {
         NioEventLoopGroup boosGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -33,6 +40,8 @@ public class NettyServer {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
+                        // pipeline， inbound 处理数据读（处理顺序和添加顺序相同）， outbound 处理数据写（相反）
+
                         // 空闲检测
                         ch.pipeline().addLast(new IMIdleStateHandler());
                         ch.pipeline().addLast(new Spliter());

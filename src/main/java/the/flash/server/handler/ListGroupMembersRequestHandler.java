@@ -21,9 +21,12 @@ public class ListGroupMembersRequestHandler extends SimpleChannelInboundHandler<
 
     }
 
+    /**
+     * 实现群聊，存储会话id
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListGroupMembersRequestPacket requestPacket) {
-        // 1. 获取群的 ChannelGroup
+        // 1. 获取群的 ChannelGroup，拿到每个人sessionId
         String groupId = requestPacket.getGroupId();
         ChannelGroup channelGroup = SessionUtil.getChannelGroup(groupId);
 
